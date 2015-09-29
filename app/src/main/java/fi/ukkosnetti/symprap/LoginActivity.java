@@ -34,8 +34,8 @@ public class LoginActivity extends Activity {
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private @Bind(R.id.username) EditText mUsernameView;
-    private @Bind(R.id.password) EditText mPasswordView;
+    protected @Bind(R.id.username) EditText mUsernameView;
+    protected @Bind(R.id.password) EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
 
