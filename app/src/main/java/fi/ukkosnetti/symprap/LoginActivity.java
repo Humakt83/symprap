@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import android.os.Build;
@@ -15,19 +16,16 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import fi.ukkosnetti.symprap.proxy.SymprapConnector;
+import fi.ukkosnetti.symprap.proxy.SymprapProxy;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends Activity {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -36,24 +34,15 @@ public class LoginActivity extends Activity {
     // UI references.
     protected @Bind(R.id.username) EditText mUsernameView;
     protected @Bind(R.id.password) EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+    protected @Bind(R.id.login_progress) View mProgressView;
+    protected @Bind(R.id.login_form) View mLoginFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button signInButton = (Button) findViewById(R.id.sign_in_button);
-        signInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        ButterKnife.bind(this);
     }
 
     /**
@@ -61,6 +50,7 @@ public class LoginActivity extends Activity {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+    @OnClick(R.id.sign_in_button)
     public void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -106,7 +96,7 @@ public class LoginActivity extends Activity {
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 3;
     }
 
     /**
@@ -151,35 +141,20 @@ public class LoginActivity extends Activity {
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
-        private final String mPassword;
+        private final String username;
+        private final String password;
 
         UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
+            username = email;
+            this.password = password;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+            SymprapProxy proxy = SymprapConnector.login(username, password);
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
+            return proxy.getUserInfo(username).userName.equalsIgnoreCase(username);
         }
 
         @Override
@@ -188,7 +163,9 @@ public class LoginActivity extends Activity {
             showProgress(false);
 
             if (success) {
-                finish();
+                startActivity(new Intent(
+                        LoginActivity.this,
+                        QuestionsActivity.class));
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
