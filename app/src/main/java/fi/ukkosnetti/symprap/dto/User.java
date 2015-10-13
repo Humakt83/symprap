@@ -1,7 +1,6 @@
 package fi.ukkosnetti.symprap.dto;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class User {
@@ -10,16 +9,16 @@ public class User {
 
     public final String userName;
 
-    public final List<Symptom> symptoms;
+    public final List<Disease> diseases;
 
-    public User(Long id, String userName, List<Symptom> symptoms) {
+    public User(Long id, String userName, List<Disease> diseases) {
         this.id = id;
         this.userName = userName;
-        this.symptoms = symptoms;
+        this.diseases = diseases;
     }
 
     public User() {
-        this(null, null, new ArrayList<Symptom>());
+        this(null, null, new ArrayList<Disease>());
     }
 
     @Override
@@ -27,7 +26,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", symptoms=" + symptoms +
+                ", diseases=" + diseases +
                 '}';
     }
 }

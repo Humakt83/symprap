@@ -1,5 +1,8 @@
 package fi.ukkosnetti.symprap.proxy;
 
+import java.util.List;
+
+import fi.ukkosnetti.symprap.dto.Question;
 import fi.ukkosnetti.symprap.dto.User;
 import retrofit.http.GET;
 import retrofit.http.Path;
@@ -10,5 +13,8 @@ public interface SymprapProxy {
 
     @GET("/user/byusername/{username}")
     public User getUserInfo(@Path("username") String userName);
+
+    @GET("/question/forsymptom/{diseaseid}")
+    public List<Question> getQuestionsForDisease(@Path("diseaseid") Long diseaseId);
 
 }
