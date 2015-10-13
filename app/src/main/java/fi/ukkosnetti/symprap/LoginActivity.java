@@ -153,8 +153,12 @@ public class LoginActivity extends Activity {
         protected Boolean doInBackground(Void... params) {
             SymprapProxy proxy = SymprapConnector.login(username, password);
 
-
-            return proxy.getUserInfo(username).userName.equalsIgnoreCase(username);
+            try {
+                return proxy.getUserInfo(username).userName.equalsIgnoreCase(username);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
         }
 
         @Override

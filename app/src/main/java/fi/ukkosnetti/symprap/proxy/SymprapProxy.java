@@ -8,7 +8,7 @@ public interface SymprapProxy {
 
     public static final String TOKEN_PATH = "/oauth/token";
 
-    @GET("/user/{username}")
+    @GET("/user/byusername/{username}")
     public User getUserInfo(@Path("username") String userName);
 
 }
