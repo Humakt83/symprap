@@ -3,4 +3,6 @@
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_question">Is this a question?</string>
+    <string name="title_activity_main">Symprap</string>
+    <string name="action_settings">Logout</string>
 </resources>

@@ -18,8 +18,10 @@ import android.widget.EditText;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fi.ukkosnetti.symprap.dto.User;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import fi.ukkosnetti.symprap.proxy.SymprapProxy;
+import fi.ukkosnetti.symprap.util.CurrentUser;
 
 /**
  * A login screen that offers login via email/password.
@@ -154,7 +156,9 @@ public class LoginActivity extends Activity {
             SymprapProxy proxy = SymprapConnector.login(username, password);
 
             try {
-                return proxy.getUserInfo(username).userName.equalsIgnoreCase(username);
+                User user = proxy.getUserInfo(username);
+                CurrentUser.setCurrentUser(user);
+                return user.userName.equalsIgnoreCase(username);
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -169,7 +173,7 @@ public class LoginActivity extends Activity {
             if (success) {
                 startActivity(new Intent(
                         LoginActivity.this,
-                        QuestionsActivity.class));
+                        MainActivity.class));
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
