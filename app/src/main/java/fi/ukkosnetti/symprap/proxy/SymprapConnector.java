@@ -1,5 +1,8 @@
 package fi.ukkosnetti.symprap.proxy;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.squareup.okhttp.OkHttpClient;
 
 import java.security.cert.CertificateException;
@@ -11,6 +14,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import fi.ukkosnetti.symprap.LoginActivity;
 import fi.ukkosnetti.symprap.util.Constants;
 import fi.ukkosnetti.symprap.webdata.SecuredRestBuilder;
 import retrofit.RestAdapter;
@@ -23,8 +27,18 @@ public class SymprapConnector {
 
     private static final String CLIENT_ID = "mobile";
 
+    private static SymprapProxy proxy;
+
+    public static synchronized SymprapProxy proxy(Context ctx) {
+        if (proxy == null) {
+            ctx.startActivity(new Intent(ctx, LoginActivity.class));
+            return null;
+        }
+        return proxy;
+    }
+
     public static synchronized SymprapProxy login(String user, String pass) {
-        return new SecuredRestBuilder()
+        proxy = new SecuredRestBuilder()
                 .setLoginEndpoint(Constants.SERVER_URL + SymprapProxy.TOKEN_PATH)
                 .setUsername(user)
                 .setPassword(pass)
@@ -32,6 +46,7 @@ public class SymprapConnector {
                 .setClient(getOkClient())
                 .setEndpoint(Constants.SERVER_URL).setLogLevel(RestAdapter.LogLevel.FULL).build()
                 .create(SymprapProxy.class);
+        return proxy;
     }
 
     public static OkHttpClient getUnsafeOkHttpClient() {

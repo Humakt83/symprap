@@ -3,6 +3,7 @@ package fi.ukkosnetti.symprap;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,9 +11,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fi.ukkosnetti.symprap.dto.Question;
+import fi.ukkosnetti.symprap.proxy.SymprapConnector;
+import fi.ukkosnetti.symprap.proxy.SymprapProxy;
 import fi.ukkosnetti.symprap.util.CurrentUser;
 
 public class MainActivity extends Activity {
@@ -36,7 +42,21 @@ public class MainActivity extends Activity {
 
     @OnClick(R.id.questionButton)
     public void toQuestions() {
-        startActivity(new Intent(MainActivity.this, QuestionsActivity.class));
+        new AsyncTask<SymprapProxy, Void, List<Question>>() {
+
+            @Override
+            protected List<Question> doInBackground(SymprapProxy... params) {
+                Long diseaseId = CurrentUser.getCurrentUser().diseases.get(0).id;
+                return params[0].getQuestionsForDisease(diseaseId);
+            }
+
+            @Override
+            protected void onPostExecute(List<Question> questions) {
+                super.onPostExecute(questions);
+                startActivity(new Intent(MainActivity.this, QuestionsActivity.class));
+            }
+        }.execute(SymprapConnector.proxy(getApplicationContext()));
+
     }
 
 
