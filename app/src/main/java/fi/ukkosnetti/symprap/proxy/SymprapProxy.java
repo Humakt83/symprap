@@ -14,7 +14,7 @@ public interface SymprapProxy {
     @GET("/user/byusername/{username}")
     public User getUserInfo(@Path("username") String userName);
 
-    @GET("/question/forsymptom/{diseaseid}")
+    @GET("/question/fordisease/{diseaseid}")
     public List<Question> getQuestionsForDisease(@Path("diseaseid") Long diseaseId);
 
 }

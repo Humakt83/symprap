@@ -10,17 +10,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fi.ukkosnetti.symprap.util.CurrentUser;
 
 public class MainActivity extends Activity {
 
+    protected @Bind(R.id.questionButton) ImageButton questionButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        questionButton.setVisibility(CurrentUser.getCurrentUser().diseases.isEmpty() ? View.INVISIBLE : View.VISIBLE);
     }
 
     @Override
