@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -42,18 +43,20 @@ public class MainActivity extends Activity {
 
     @OnClick(R.id.questionButton)
     public void toQuestions() {
-        new AsyncTask<SymprapProxy, Void, List<Question>>() {
+        new AsyncTask<SymprapProxy, Void, ArrayList<Question>>() {
 
             @Override
-            protected List<Question> doInBackground(SymprapProxy... params) {
+            protected ArrayList<Question> doInBackground(SymprapProxy... params) {
                 Long diseaseId = CurrentUser.getCurrentUser().diseases.get(0).id;
-                return params[0].getQuestionsForDisease(diseaseId);
+                return (ArrayList<Question>)params[0].getQuestionsForDisease(diseaseId);
             }
 
             @Override
-            protected void onPostExecute(List<Question> questions) {
+            protected void onPostExecute(ArrayList<Question> questions) {
                 super.onPostExecute(questions);
-                startActivity(new Intent(MainActivity.this, QuestionsActivity.class));
+                Intent intent = new Intent(MainActivity.this, QuestionsActivity.class);
+                intent.putExtra(QuestionsActivity.QUESTIONS_KEY, questions);
+                startActivity(intent);
             }
         }.execute(SymprapConnector.proxy(getApplicationContext()));
 

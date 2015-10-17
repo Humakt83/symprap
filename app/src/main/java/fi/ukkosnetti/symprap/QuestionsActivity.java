@@ -1,5 +1,6 @@
 package fi.ukkosnetti.symprap;
 
+import fi.ukkosnetti.symprap.dto.Question;
 import fi.ukkosnetti.symprap.util.SystemUiHider;
 
 import android.annotation.TargetApi;
@@ -9,6 +10,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -39,6 +43,8 @@ public class QuestionsActivity extends Activity {
      * The flags to pass to {@link SystemUiHider#getInstance}.
      */
     private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+
+    public static final String QUESTIONS_KEY = "questions";
 
     /**
      * The instance of the {@link SystemUiHider} for this activity.
@@ -122,6 +128,8 @@ public class QuestionsActivity extends Activity {
         // created, to briefly hint to the user that UI controls
         // are available.
         delayedHide(100);
+        List<Question> questions = (List<Question>)getIntent().getSerializableExtra(QuestionsActivity.QUESTIONS_KEY);
+        System.out.println(questions);
     }
 
 

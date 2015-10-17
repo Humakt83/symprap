@@ -1,6 +1,8 @@
 package fi.ukkosnetti.symprap.dto;
 
-public class Question {
+import java.io.Serializable;
+
+public class Question implements Serializable {
 
     public enum AnswerType {
         TEXT, DOUBLE, BOOLEAN;
