@@ -9,9 +9,31 @@
          TextureView, etc. -->
     <TextView android:id="@+id/question" android:layout_width="match_parent"
         android:layout_height="match_parent" android:keepScreenOn="true" android:textColor="#e5ca00"
-        android:textStyle="bold" android:textSize="50sp" android:gravity="center"
-        android:text="@string/dummy_question" />
+        android:textStyle="bold" android:textSize="50sp" android:gravity="top|center_horizontal"
+        android:text="@string/dummy_question" android:layout_marginTop="50dp"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:keepScreenOn="true"
+        android:gravity="bottom|center_horizontal">
+
+        <LinearLayout android:id="@+id/boolean_answers"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+
+            <Button android:id="@+id/no_button"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="@string/no_button"
+                android:textColor="#e5ca00" />
+            <Button android:id="@+id/yes_button"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="@string/yes_button"
+                android:textColor="#e5ca00" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
     <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
@@ -23,9 +45,9 @@
             android:background="@color/black_overlay" android:orientation="horizontal"
             tools:ignore="UselessParent">
 
-            <Button android:id="@+id/dummy_button" style="?metaButtonBarButtonStyle"
+            <Button android:id="@+id/abort_button" style="?metaButtonBarButtonStyle"
                 android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:text="@string/dummy_button"
+                android:layout_weight="1" android:text="Abort"
                 android:textColor="#e5ca00" />
 
         </LinearLayout>

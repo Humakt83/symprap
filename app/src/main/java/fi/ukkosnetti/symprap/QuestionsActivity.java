@@ -1,17 +1,26 @@
 package fi.ukkosnetti.symprap;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import fi.ukkosnetti.symprap.dto.Answer;
 import fi.ukkosnetti.symprap.dto.Question;
+import fi.ukkosnetti.symprap.util.CurrentUser;
 import fi.ukkosnetti.symprap.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -46,6 +55,20 @@ public class QuestionsActivity extends Activity {
 
     public static final String QUESTIONS_KEY = "questions";
 
+    private Iterator<Question> questions;
+
+    private List<Answer> answers;
+
+    private Question currentQuestion;
+
+    protected @Bind(R.id.question) TextView questionView;
+
+    protected @Bind(R.id.yes_button) Button yesButton;
+
+    protected @Bind(R.id.no_button) Button noButton;
+
+    protected @Bind(R.id.abort_button) Button abortButton;
+
     /**
      * The instance of the {@link SystemUiHider} for this activity.
      */
@@ -56,10 +79,10 @@ public class QuestionsActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_questions);
+        ButterKnife.bind(this);
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.question);
-
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
         mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
@@ -117,7 +140,7 @@ public class QuestionsActivity extends Activity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        abortButton.setOnTouchListener(mDelayHideTouchListener);
     }
 
     @Override
@@ -128,8 +151,37 @@ public class QuestionsActivity extends Activity {
         // created, to briefly hint to the user that UI controls
         // are available.
         delayedHide(100);
-        List<Question> questions = (List<Question>)getIntent().getSerializableExtra(QuestionsActivity.QUESTIONS_KEY);
-        System.out.println(questions);
+        questions = ((List<Question>)getIntent().getSerializableExtra(QuestionsActivity.QUESTIONS_KEY)).iterator();
+        setupQuestion();
+    }
+
+    private void setupQuestion() {
+        currentQuestion = questions.next();
+        questionView.setText(currentQuestion.question);
+    }
+
+    @OnClick(R.id.yes_button)
+    public void answerYes() {
+        continueQuestions(Boolean.TRUE.toString());
+    }
+
+    @OnClick(R.id.no_button)
+    public void answerNo() {
+        continueQuestions(Boolean.FALSE.toString());
+    }
+
+    @OnClick(R.id.abort_button)
+    public void abort() {
+        startActivity(new Intent(QuestionsActivity.this, MainActivity.class));
+    }
+
+    private void continueQuestions(String answer) {
+        answers.add(new Answer(currentQuestion.id, CurrentUser.getCurrentUser().id, answer));
+        if (questions.hasNext()) {
+            setupQuestion();
+        } else {
+
+        }
     }
 
 
