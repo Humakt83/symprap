@@ -1,6 +1,8 @@
 package fi.ukkosnetti.symprap.dto;
 
-public class Answer {
+import java.io.Serializable;
+
+public class Answer implements Serializable{
 
     public final Long questionId;
 

@@ -5,6 +5,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fi.ukkosnetti.symprap.dto.Answer;
 import fi.ukkosnetti.symprap.dto.Question;
+import fi.ukkosnetti.symprap.service.AnswerService;
 import fi.ukkosnetti.symprap.util.CurrentUser;
 import fi.ukkosnetti.symprap.util.SystemUiHider;
 
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -212,7 +214,10 @@ public class QuestionsActivity extends Activity {
         if (questions.hasNext()) {
             setupQuestion();
         } else {
-
+            Intent answerIntent = new Intent(getApplicationContext(), AnswerService.class);
+            answerIntent.putExtra(AnswerService.ANSWERS_KEY, (Serializable) answers);
+            startService(answerIntent);
+            startActivity(new Intent(QuestionsActivity.this, MainActivity.class));
         }
     }
 
