@@ -3,6 +3,7 @@
 
     <string name="yes_button">Yes</string>
     <string name="no_button">No</string>
+    <string name="number_button">Submit</string>
     <string name="dummy_question">Is this a question?</string>
     <string name="title_activity_main">Symprap</string>
     <string name="action_settings">Logout</string>

@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -63,11 +64,17 @@ public class QuestionsActivity extends Activity {
 
     protected @Bind(R.id.question) TextView questionView;
 
-    protected @Bind(R.id.yes_button) Button yesButton;
-
-    protected @Bind(R.id.no_button) Button noButton;
-
     protected @Bind(R.id.abort_button) Button abortButton;
+
+    protected @Bind(R.id.numberAnswer) EditText numberField;
+
+    protected @Bind(R.id.textAnswer) EditText textField;
+
+    protected @Bind(R.id.boolean_answers) View booleanAnswers;
+
+    protected @Bind(R.id.number_answers) View numberAnswers;
+
+    protected @Bind(R.id.text_answers) View textAnswers;
 
     /**
      * The instance of the {@link SystemUiHider} for this activity.
@@ -141,6 +148,7 @@ public class QuestionsActivity extends Activity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         abortButton.setOnTouchListener(mDelayHideTouchListener);
+        answers = new ArrayList<>();
     }
 
     @Override
@@ -158,6 +166,30 @@ public class QuestionsActivity extends Activity {
     private void setupQuestion() {
         currentQuestion = questions.next();
         questionView.setText(currentQuestion.question);
+        textAnswers.setVisibility(View.INVISIBLE);
+        booleanAnswers.setVisibility(View.INVISIBLE);
+        numberAnswers.setVisibility(View.INVISIBLE);
+        switch(currentQuestion.answerType) {
+            case BOOLEAN:
+                booleanAnswers.setVisibility(View.VISIBLE);
+                break;
+            case TEXT:
+                textAnswers.setVisibility(View.VISIBLE);
+                break;
+            case DOUBLE:
+                numberAnswers.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    @OnClick(R.id.number_button)
+    public void answerNumber() {
+        continueQuestions(numberField.getText().toString());
+    }
+
+    @OnClick(R.id.text_button)
+    public void answerText() {
+        continueQuestions(textField.getText().toString());
     }
 
     @OnClick(R.id.yes_button)
