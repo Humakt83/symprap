@@ -7,4 +7,5 @@
     <string name="dummy_question">Is this a question?</string>
     <string name="title_activity_main">Symprap</string>
     <string name="action_settings">Logout</string>
+    <string name="title_activity_register">Registration</string>
 </resources>

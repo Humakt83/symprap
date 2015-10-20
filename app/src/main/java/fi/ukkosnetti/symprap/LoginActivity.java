@@ -96,6 +96,11 @@ public class LoginActivity extends Activity {
         }
     }
 
+    @OnClick(R.id.signupButton)
+    public void toRegistration() {
+        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+    }
+
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 3;
