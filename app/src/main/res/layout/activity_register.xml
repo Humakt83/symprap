@@ -70,6 +70,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Confirm Password"
+                android:id="@+id/textView20"
+                android:labelFor="@+id/confirmPasswordRegistration" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/confirmPasswordRegistration"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="First name"
                 android:id="@+id/textView3"
                 android:editable="false"
@@ -136,13 +159,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.05"
-            android:id="@+id/userTypeRadioGroup">
+            android:id="@+id/userTypeRadioGroup"
+            android:clickable="false">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Teen"
-                android:id="@+id/radioTeen" />
+                android:id="@+id/radioTeen"
+                android:checked="true" />
 
             <RadioButton
                 android:layout_width="wrap_content"

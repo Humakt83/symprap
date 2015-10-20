@@ -21,6 +21,7 @@ import butterknife.OnClick;
 import fi.ukkosnetti.symprap.dto.User;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import fi.ukkosnetti.symprap.proxy.SymprapProxy;
+import fi.ukkosnetti.symprap.util.Constants;
 import fi.ukkosnetti.symprap.util.CurrentUser;
 
 /**
@@ -102,8 +103,7 @@ public class LoginActivity extends Activity {
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 3;
+        return password.length() >= Constants.PASSWORD_MINIMUM_LENGTH;
     }
 
     /**
