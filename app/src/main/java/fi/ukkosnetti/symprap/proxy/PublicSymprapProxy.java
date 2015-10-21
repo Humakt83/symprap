@@ -8,6 +8,6 @@ import retrofit.http.POST;
 
 public interface PublicSymprapProxy {
 
-    @POST("/user/create")
+    @POST("/user/register")
     User registerUser(@Body UserCreate userCreate);
 }
