@@ -4,64 +4,113 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
+import fi.ukkosnetti.symprap.dto.Disease;
 import fi.ukkosnetti.symprap.dto.UserCreate;
 import fi.ukkosnetti.symprap.dto.UserRole;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import fi.ukkosnetti.symprap.util.Constants;
-import retrofit.client.Response;
 
 public class RegisterActivity extends Activity {
 
     protected @Bind(R.id.usernameRegistration) EditText usernameField;
-
     protected @Bind(R.id.passwordRegistration) EditText passwordField;
-
     protected @Bind(R.id.confirmPasswordRegistration) EditText confirmPasswordField;
-
     protected @Bind(R.id.firstName) EditText firstNameField;
-
     protected @Bind(R.id.lastName) EditText lastNameField;
-
     protected @Bind(R.id.dateOfBirth) EditText dateOfBirthField;
-
     protected @Bind(R.id.medicalRecordNumber) EditText medicalRecordNumberField;
-
     protected @Bind(R.id.registrationForm) View registrationForm;
-
     protected @Bind(R.id.registrationProgress) View progressView;
+    protected @Bind(R.id.diseaseList) ListView diseaseList;
 
     private UserRole userType = UserRole.TEEN;
+    private List<Disease> selectedDiseases;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+        selectedDiseases = new ArrayList<>();
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        showProgress(true);
+        new AsyncTask<Void, Void, List<Disease>>() {
+
+            @Override
+            protected List<Disease> doInBackground(Void... params) {
+                try {
+                    return SymprapConnector.publicMethods().diseases();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(List<Disease> diseases) {
+                showProgress(false);
+                if (diseases == null) makeToast("Could not fetch diseases");
+                else {
+                    diseaseList.setAdapter(new ArrayAdapter<Disease>(RegisterActivity.this,
+                            R.layout.disease_list_item,
+                            diseases));
+                }
+            }
+        }.execute();
+    }
+
+    @OnItemClick(R.id.diseaseList)
+    public void toggleDisease(int position) {
+        Adapter adapter = diseaseList.getAdapter();
+        Disease disease = (Disease) adapter.getItem(position);
+        TextView diseaseTitle = (TextView)diseaseList.getChildAt(position);
+        if (selectedDiseases.contains(disease)) {
+            selectedDiseases.remove(disease);
+            diseaseTitle.setTextColor(Color.BLACK);
+        } else {
+            selectedDiseases.add(disease);
+            diseaseTitle.setTextColor(Color.BLUE);
+        }
     }
 
     @OnClick(R.id.radioTeen)
     public void selectTeenUserType() {
         medicalRecordNumberField.setEnabled(true);
+        diseaseList.setEnabled(true);
         userType = UserRole.TEEN;
     }
 
     @OnClick(R.id.radioFollower)
     public void selectFollowerUserType() {
         medicalRecordNumberField.setEnabled(false);
+        diseaseList.setEnabled(false);
         userType = UserRole.FOLLOWER;
     }
 
@@ -71,20 +120,24 @@ public class RegisterActivity extends Activity {
             try {
                 showProgress(true);
                 new RegistrationTask().execute(new UserCreate(
-                        usernameField.getText().toString().trim(),
-                        passwordField.getText().toString().trim(),
-                        firstNameField.getText().toString().trim(),
-                        lastNameField.getText().toString().trim(),
+                        getTextValueFromEditText(usernameField),
+                        getTextValueFromEditText(passwordField),
+                        getTextValueFromEditText(firstNameField),
+                        getTextValueFromEditText(lastNameField),
                         Constants.DATE_FORMATTER.parse(dateOfBirthField.getText().toString()),
                         userType == UserRole.TEEN ? Long.parseLong(medicalRecordNumberField.getText().toString()) : null,
                         Arrays.asList(userType),
-                        null
+                        userType == UserRole.TEEN ? selectedDiseases : null
                 ));
             } catch (ParseException e) {
-                Toast.makeText(getApplicationContext(), "Could not parse date", Toast.LENGTH_SHORT);
+                makeToast("Could not parse date");
                 showProgress(false);
             }
         }
+    }
+
+    private String getTextValueFromEditText(EditText field) {
+        return field.getText().toString().trim();
     }
 
     private boolean areFieldsValid() {
@@ -95,12 +148,17 @@ public class RegisterActivity extends Activity {
         sb.append(isEmpty(lastNameField) ? "Last name is missing\n" : "");
         sb.append(validateDateOfBirth());
         sb.append(isMedicalRecordMissing() ? "Medical record number is missing\n" : "");
+        sb.append(areDiseasesInvalid() ? "No diseases selected" : "");
         if (sb.length() > 0) {
-            Toast.makeText(getApplicationContext(), sb.toString(), Toast.LENGTH_SHORT).show();
+            makeToast(sb.toString());
             return false;
         } else {
             return true;
         }
+    }
+
+    private boolean areDiseasesInvalid() {
+        return userType == UserRole.TEEN && selectedDiseases.isEmpty();
     }
 
     private boolean isMedicalRecordMissing() {
@@ -175,6 +233,10 @@ public class RegisterActivity extends Activity {
         }
     }
 
+    private void makeToast(String text) {
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+    }
+
     private class RegistrationTask extends AsyncTask<UserCreate, Void, Boolean> {
 
         @Override
@@ -195,7 +257,7 @@ public class RegisterActivity extends Activity {
                         RegisterActivity.this,
                         LoginActivity.class));
             } else {
-                Toast.makeText(getApplicationContext(), "Registration failed", Toast.LENGTH_SHORT);
+                makeToast("Registration failed");
             }
         }
     }

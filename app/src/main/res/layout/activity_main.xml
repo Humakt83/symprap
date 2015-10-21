@@ -9,21 +9,22 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/questionButton"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="16dp"
-        android:layout_alignParentTop="true"
+        android:id="@+id/statisticsButton"
+        android:layout_centerHorizontal="true"
+        android:minHeight="150dp"
+        android:minWidth="200dp"
+        android:src="@drawable/statistics"
         android:layout_alignParentStart="true"
-        android:src="@drawable/question" />
+        android:layout_alignParentTop="true"/>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/statisticsButton"
+        android:id="@+id/questionButton"
         android:minHeight="150dp"
         android:minWidth="200dp"
-        android:src="@drawable/statistics"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/questionButton" />
+        android:src="@drawable/question"
+        android:layout_alignStart="@+id/statisticsButton"/>
 
 </RelativeLayout>
