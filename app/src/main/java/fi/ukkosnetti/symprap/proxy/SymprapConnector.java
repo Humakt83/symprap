@@ -44,9 +44,20 @@ public class SymprapConnector {
                 .setPassword(pass)
                 .setClientId(CLIENT_ID)
                 .setClient(getOkClient())
-                .setEndpoint(Constants.SERVER_URL).setLogLevel(RestAdapter.LogLevel.FULL).build()
+                .setEndpoint(Constants.SERVER_URL)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .build()
                 .create(SymprapProxy.class);
         return proxy;
+    }
+
+    public static synchronized PublicSymprapProxy publicMethods() {
+        return new RestAdapter.Builder()
+                .setClient(getOkClient())
+                .setEndpoint(Constants.SERVER_URL)
+                .setLogLevel(RestAdapter.LogLevel.BASIC)
+                .build()
+                .create(PublicSymprapProxy.class);
     }
 
     public static OkHttpClient getUnsafeOkHttpClient() {

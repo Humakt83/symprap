@@ -5,10 +5,6 @@ import java.util.List;
 
 public class User {
 
-    public enum UserRole {
-        ADMIN, TEEN, FOLLOWER;
-    }
-
     public final Long id;
 
     public final String userName;

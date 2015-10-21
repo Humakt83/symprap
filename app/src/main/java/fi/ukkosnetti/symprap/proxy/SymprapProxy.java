@@ -16,12 +16,12 @@ public interface SymprapProxy {
     public static final String TOKEN_PATH = "/oauth/token";
 
     @GET("/user/byusername/{username}")
-    public User getUserInfo(@Path("username") String userName);
+    User getUserInfo(@Path("username") String userName);
 
     @GET("/question/fordisease/{diseaseid}")
-    public List<Question> getQuestionsForDisease(@Path("diseaseid") Long diseaseId);
+    List<Question> getQuestionsForDisease(@Path("diseaseid") Long diseaseId);
 
     @POST("/answer/")
-    public Response submitAnswers(@Body List<Answer> answers);
+    Response submitAnswers(@Body List<Answer> answers);
 
 }
