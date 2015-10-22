@@ -1,5 +1,17 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
+    <color name="background_material_light">#1448f4</color>
+    <color name="primary_text_material_light">#f5ed13</color>
+    <color name="primary_text_material_dark">#f8e921</color>
+    <color name="secondary_text_material_light">#f5ed13</color>
+    <color name="secondary_text_default_material_dark">#f5ed13</color>
+    <color name="secondary_text_material_dark">#f5ed13</color>
+    <color name="black">#494600</color>
+    <color name="primary_dark_material_light">#f5ed13</color>
+    <color name="accent_material_light">#18e9d6</color>
+    <color name="foreground_material_light">#f5ed13</color>
+    <color name="primary_material_light">#dd4110</color>
+    <color name="button_background">#FF04195F</color>
 
 </resources>
