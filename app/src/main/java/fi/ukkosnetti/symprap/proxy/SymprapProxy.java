@@ -3,6 +3,7 @@ package fi.ukkosnetti.symprap.proxy;
 import java.util.List;
 
 import fi.ukkosnetti.symprap.dto.Answer;
+import fi.ukkosnetti.symprap.dto.AnswerGet;
 import fi.ukkosnetti.symprap.dto.Question;
 import fi.ukkosnetti.symprap.dto.User;
 import retrofit.client.Response;
@@ -13,7 +14,7 @@ import retrofit.http.Path;
 
 public interface SymprapProxy {
 
-    public static final String TOKEN_PATH = "/oauth/token";
+    String TOKEN_PATH = "/oauth/token";
 
     @GET("/user/byusername/{username}")
     User getUserInfo(@Path("username") String userName);
@@ -23,5 +24,8 @@ public interface SymprapProxy {
 
     @POST("/answer/")
     Response submitAnswers(@Body List<Answer> answers);
+
+    @GET("/answer/byuser/{username}")
+    List<AnswerGet> getAnswersForUser(@Path("username") String username);
 
 }
