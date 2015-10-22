@@ -13,5 +13,6 @@
     <color name="foreground_material_light">#f5ed13</color>
     <color name="primary_material_light">#dd4110</color>
     <color name="button_background">#FF04195F</color>
+    <color name="statusBarColor">#dd4110</color>
 
 </resources>

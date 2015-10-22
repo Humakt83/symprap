@@ -29,11 +29,6 @@ public class Question implements Serializable {
 
     @Override
     public String toString() {
-        return "Question{" +
-                "id=" + id +
-                ", question='" + question + '\'' +
-                ", answerType=" + answerType +
-                ", symptomId=" + symptomId +
-                '}';
+        return question;
     }
 }

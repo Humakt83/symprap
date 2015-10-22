@@ -62,6 +62,11 @@ public class MainActivity extends Activity {
 
     }
 
+    @OnClick(R.id.statisticsButton)
+    public void toStatistics() {
+        startActivity(new Intent(MainActivity.this, ReportsMainActivity.class));
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
