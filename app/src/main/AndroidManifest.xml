@@ -44,6 +44,18 @@
             android:name=".ReportsMainActivity"
             android:label="@string/title_activity_reports_main" >
         </activity>
+        <activity
+            android:name=".TextReportActivity"
+            android:label="@string/title_activity_text_report" >
+        </activity>
+        <activity
+            android:name=".DoubleReportActivity"
+            android:label="@string/title_activity_double_report" >
+        </activity>
+        <activity
+            android:name=".BooleanReportActivity"
+            android:label="@string/title_activity_boolean_report" >
+        </activity>
     </application>
 
 </manifest>

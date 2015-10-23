@@ -1,8 +1,8 @@
 package fi.ukkosnetti.symprap.dto;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class AnswerGet {
+public class AnswerGet implements Serializable, Comparable<AnswerGet> {
 
     public final String answer;
 
@@ -18,5 +18,10 @@ public class AnswerGet {
 
     public AnswerGet() {
         this(null, null, null);
+    }
+
+    @Override
+    public int compareTo(AnswerGet another) {
+        return another.created > this.created ? 1 : another.created < this.created ? -1 : 0;
     }
 }

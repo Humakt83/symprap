@@ -9,4 +9,7 @@
     <string name="action_settings">Logout</string>
     <string name="title_activity_register">Registration</string>
     <string name="title_activity_reports_main">Reports</string>
+    <string name="title_activity_text_report">Report</string>
+    <string name="title_activity_double_report">Report</string>
+    <string name="title_activity_boolean_report">Report</string>
 </resources>

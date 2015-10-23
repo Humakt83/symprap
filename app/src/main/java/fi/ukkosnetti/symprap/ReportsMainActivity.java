@@ -1,5 +1,6 @@
 package fi.ukkosnetti.symprap;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -48,9 +49,37 @@ public class ReportsMainActivity extends Activity {
         for (AnswerGet answer : answersToQuestions) {
             found = found || answer.questionId.equals(question.id);
         }
-        if (!found) {
-            Toast.makeText(getApplicationContext(), "No answer data available", Toast.LENGTH_SHORT).show();
+        if (!found) Toast.makeText(getApplicationContext(), "No answer data available", Toast.LENGTH_SHORT).show();
+        else proceedToReport(question);
+    }
+
+    private void proceedToReport(Question question) {
+        Intent intent = null;
+        switch(question.answerType) {
+            case BOOLEAN:
+                intent = new Intent(ReportsMainActivity.this, BooleanReportActivity.class);
+                break;
+            case DOUBLE:
+                intent = new Intent(ReportsMainActivity.this, DoubleReportActivity.class);
+                break;
+            case TEXT:
+                intent = new Intent(ReportsMainActivity.this, TextReportActivity.class);
+                break;
+            default:
+                Toast.makeText(getApplicationContext(), "Unsupported answer type", Toast.LENGTH_SHORT).show();
+                return;
         }
+        intent.putExtra(ReportActivity.QUESTION_KEY, question.question);
+        intent.putExtra(ReportActivity.ANSWERS_KEY, getAnswersForQuestion(question.id));
+        startActivity(intent);
+    }
+
+    private ArrayList<AnswerGet> getAnswersForQuestion(Long questionId) {
+        ArrayList<AnswerGet> fittingAnswers = new ArrayList<>();
+        for (AnswerGet answer : answersToQuestions) {
+            if (answer.questionId.equals(questionId)) fittingAnswers.add(answer);
+        }
+        return fittingAnswers;
     }
 
     private void getAnswers(SymprapProxy proxy) {
