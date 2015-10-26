@@ -20,5 +20,20 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             android:id="@+id/questionTitleReport" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="10/10/2010 - 05/15/2015"
+            android:id="@+id/booleanReportDate" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:id="@+id/booleanCanvasLayout">
+
+        </FrameLayout>
+
     </LinearLayout>
 </RelativeLayout>
