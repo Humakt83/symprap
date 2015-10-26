@@ -58,7 +58,7 @@ public class TextReportActivity extends ReportActivity {
                     convertView = inflater.inflate(R.layout.text_answer_report_item, null, false);
                 }
                 TextView dateView = (TextView) convertView.findViewById(R.id.textAnswerDate);
-                dateView.setText(Constants.DATE_FORMATTER.format(new Date(answers.get(position).created)));
+                dateView.setText(Constants.DATETIME_FORMATTER.format(new Date(answers.get(position).created)));
                 TextView textView = (TextView) convertView.findViewById(R.id.textAnswerText);
                 textView.setText(answers.get(position).answer);
                 return convertView;
