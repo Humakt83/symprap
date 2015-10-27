@@ -1,6 +1,9 @@
 package fi.ukkosnetti.symprap;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Intent;
 import android.media.Image;
 import android.os.AsyncTask;
@@ -18,13 +21,18 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fi.ukkosnetti.symprap.dto.Question;
+import fi.ukkosnetti.symprap.dto.UserRole;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import fi.ukkosnetti.symprap.proxy.SymprapProxy;
+import fi.ukkosnetti.symprap.receiver.QuestionsNotificationReceiver;
+import fi.ukkosnetti.symprap.task.QuestionsTask;
 import fi.ukkosnetti.symprap.util.CurrentUser;
 
 public class MainActivity extends Activity {
 
     protected @Bind(R.id.questionButton) ImageButton questionButton;
+
+    private final static Integer ALARM_INTERVAL_TWO_MINUTES = 30000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,9 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         questionButton.setVisibility(CurrentUser.getCurrentUser().diseases.isEmpty() ? View.INVISIBLE : View.VISIBLE);
+        if (CurrentUser.getCurrentUser().roles.contains(UserRole.TEEN)) {
+            createAlarm();
+        }
     }
 
     @Override
@@ -43,28 +54,20 @@ public class MainActivity extends Activity {
 
     @OnClick(R.id.questionButton)
     public void toQuestions() {
-        new AsyncTask<SymprapProxy, Void, ArrayList<Question>>() {
-
-            @Override
-            protected ArrayList<Question> doInBackground(SymprapProxy... params) {
-                Long diseaseId = CurrentUser.getCurrentUser().diseases.get(0).id;
-                return (ArrayList<Question>)params[0].getQuestionsForDisease(diseaseId);
-            }
-
-            @Override
-            protected void onPostExecute(ArrayList<Question> questions) {
-                super.onPostExecute(questions);
-                Intent intent = new Intent(MainActivity.this, QuestionsActivity.class);
-                intent.putExtra(QuestionsActivity.QUESTIONS_KEY, questions);
-                startActivity(intent);
-            }
-        }.execute(SymprapConnector.proxy(getApplicationContext()));
-
+        new QuestionsTask(this).execute(SymprapConnector.proxy(this));
     }
 
     @OnClick(R.id.statisticsButton)
     public void toStatistics() {
         startActivity(new Intent(MainActivity.this, ReportsMainActivity.class));
+    }
+
+    private void createAlarm() {
+        Intent intent = new Intent(this, QuestionsNotificationReceiver.class);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Service.ALARM_SERVICE);
+        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                ALARM_INTERVAL_TWO_MINUTES, ALARM_INTERVAL_TWO_MINUTES, alarmIntent);
     }
 
 

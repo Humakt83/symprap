@@ -21,8 +21,6 @@ public class AnswerService extends IntentService {
 
     private static final int NOTIFICATION_ID = 100;
 
-    public static final String ACTION_ANSWER_SERVICE_RESPONSE = AnswerService.class.getName();
-
     public static final String ANSWERS_KEY = "answers";
 
     private NotificationManager notifyManager;

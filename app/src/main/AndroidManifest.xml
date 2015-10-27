@@ -33,7 +33,13 @@
         <service
             android:name=".service.AnswerService"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="false" >
+        </service>
+
+        <service
+            android:name=".service.QuestionService"
+            android:enabled="true"
+            android:exported="false" >
         </service>
 
         <activity
@@ -56,6 +62,12 @@
             android:name=".BooleanReportActivity"
             android:label="@string/title_activity_boolean_report" >
         </activity>
+
+        <receiver
+            android:name=".receiver.QuestionsNotificationReceiver"
+            android:exported="true" >
+        </receiver>
+
     </application>
 
 </manifest>
