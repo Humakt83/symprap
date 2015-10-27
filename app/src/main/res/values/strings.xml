@@ -12,4 +12,5 @@
     <string name="title_activity_text_report">Report</string>
     <string name="title_activity_double_report">Report</string>
     <string name="title_activity_boolean_report">Report</string>
+    <string name="title_activity_schedule">Schedule Reminders</string>
 </resources>

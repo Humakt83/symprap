@@ -35,7 +35,6 @@
             android:enabled="true"
             android:exported="false" >
         </service>
-
         <service
             android:name=".service.QuestionService"
             android:enabled="true"
@@ -68,6 +67,10 @@
             android:exported="true" >
         </receiver>
 
+        <activity
+            android:name=".ScheduleActivity"
+            android:label="@string/title_activity_schedule" >
+        </activity>
     </application>
 
 </manifest>

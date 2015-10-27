@@ -78,7 +78,7 @@ public class RegisterActivity extends Activity {
                 showProgress(false);
                 if (diseases == null) makeToast("Could not fetch diseases");
                 else {
-                    diseaseList.setAdapter(new ArrayAdapter<Disease>(RegisterActivity.this,
+                    diseaseList.setAdapter(new ArrayAdapter<>(RegisterActivity.this,
                             R.layout.disease_list_item,
                             diseases));
                 }

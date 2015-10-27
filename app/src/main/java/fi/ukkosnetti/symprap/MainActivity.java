@@ -65,7 +65,12 @@ public class MainActivity extends Activity {
 
     @OnClick(R.id.statisticsButton)
     public void toStatistics() {
-        startActivity(new Intent(MainActivity.this, ReportsMainActivity.class));
+        startActivity(new Intent(this, ReportsMainActivity.class));
+    }
+
+    @OnClick(R.id.settingsButton)
+    public void toSettings() {
+        startActivity(new Intent(this, ScheduleActivity.class));
     }
 
     private void createAlarm() {
