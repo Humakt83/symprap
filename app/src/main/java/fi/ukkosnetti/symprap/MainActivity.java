@@ -21,6 +21,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fi.ukkosnetti.symprap.dto.Question;
+import fi.ukkosnetti.symprap.dto.User;
 import fi.ukkosnetti.symprap.dto.UserRole;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import fi.ukkosnetti.symprap.proxy.SymprapProxy;
@@ -39,8 +40,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        questionButton.setVisibility(CurrentUser.getCurrentUser().diseases.isEmpty() ? View.INVISIBLE : View.VISIBLE);
-        if (CurrentUser.getCurrentUser().roles.contains(UserRole.TEEN)) {
+        User currentUser = CurrentUser.getCurrentUser();
+        if (currentUser == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
+        questionButton.setVisibility(currentUser.diseases.isEmpty() ? View.INVISIBLE : View.VISIBLE);
+        if (currentUser.roles.contains(UserRole.TEEN)) {
             createAlarm();
         }
     }
