@@ -32,8 +32,8 @@ import fi.ukkosnetti.symprap.util.CurrentUser;
 public class MainActivity extends Activity {
 
     protected @Bind(R.id.questionButton) ImageButton questionButton;
-
-    private final static Integer ALARM_INTERVAL_TWO_MINUTES = 30000;
+    protected @Bind(R.id.settingsButton) ImageButton settingsButton;
+    protected @Bind(R.id.followersButton) ImageButton followersButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +45,10 @@ public class MainActivity extends Activity {
             startActivity(new Intent(this, LoginActivity.class));
             return;
         }
-        questionButton.setVisibility(currentUser.diseases.isEmpty() ? View.INVISIBLE : View.VISIBLE);
-        if (currentUser.roles.contains(UserRole.TEEN)) {
-            createAlarm();
-        }
+        boolean teenUser = currentUser.roles.contains(UserRole.TEEN);
+        questionButton.setVisibility(!teenUser ? View.INVISIBLE : View.VISIBLE);
+        settingsButton.setVisibility(!teenUser ? View.INVISIBLE : View.VISIBLE);
+        followersButton.setVisibility(!teenUser ? View.INVISIBLE : View.VISIBLE);
     }
 
     @Override
@@ -72,15 +72,6 @@ public class MainActivity extends Activity {
     public void toSettings() {
         startActivity(new Intent(this, ScheduleActivity.class));
     }
-
-    private void createAlarm() {
-        Intent intent = new Intent(this, QuestionsNotificationReceiver.class);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Service.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                ALARM_INTERVAL_TWO_MINUTES, ALARM_INTERVAL_TWO_MINUTES, alarmIntent);
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
