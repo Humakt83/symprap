@@ -28,6 +28,13 @@
             android:id="@+id/addFollowerButton" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Followers (click to remove)"
+        android:id="@+id/textView7" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

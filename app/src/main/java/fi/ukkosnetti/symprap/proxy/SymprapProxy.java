@@ -23,6 +23,9 @@ public interface SymprapProxy {
     @PUT("/user/follower/add/{username}")
     Response addFollower(@Path("username") String username);
 
+    @PUT("/user/follower/remove/{username}")
+    Response removeFollower(@Path("username") String username);
+
     @GET("/question/fordisease/{diseaseid}")
     List<Question> getQuestionsForDisease(@Path("diseaseid") Long diseaseId);
 

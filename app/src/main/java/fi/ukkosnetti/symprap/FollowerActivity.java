@@ -16,6 +16,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 import fi.ukkosnetti.symprap.dto.Disease;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import fi.ukkosnetti.symprap.proxy.SymprapProxy;
@@ -47,6 +48,12 @@ public class FollowerActivity extends Activity {
         }
     }
 
+    @OnItemClick(R.id.followersList)
+    public void removeFollower(int position) {
+        String follower = CurrentUser.getCurrentUser().followers.get(position);
+        new RemoveFollowerTask(follower).execute();
+    }
+
     private boolean validateFollower(String follower) {
         if (Strings.isNullOrEmpty(follower)) {
             Toast.makeText(this, "Username of follower not provided", Toast.LENGTH_LONG).show();
@@ -61,7 +68,7 @@ public class FollowerActivity extends Activity {
         return true;
     }
 
-    private class AddFollowerTask extends AsyncTask<String, Void, Boolean> {
+    private class AddFollowerTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String follower;
 
@@ -70,7 +77,7 @@ public class FollowerActivity extends Activity {
         }
 
         @Override
-        protected Boolean doInBackground(String... params) {
+        protected Boolean doInBackground(Void... params) {
             try {
                 return SymprapConnector.proxy(FollowerActivity.this).addFollower(follower).getStatus() == 200;
             } catch (Exception e) {
@@ -86,6 +93,35 @@ public class FollowerActivity extends Activity {
                 ((ArrayAdapter)followersList.getAdapter()).notifyDataSetChanged();
             } else {
                 Toast.makeText(FollowerActivity.this, "Adding follower failed", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private class RemoveFollowerTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String follower;
+
+        public RemoveFollowerTask(String follower) {
+            this.follower = follower;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                return SymprapConnector.proxy(FollowerActivity.this).removeFollower(follower).getStatus() == 200;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                CurrentUser.getCurrentUser().followers.remove(follower);
+                ((ArrayAdapter)followersList.getAdapter()).notifyDataSetChanged();
+            } else {
+                Toast.makeText(FollowerActivity.this, "Removing follower failed", Toast.LENGTH_LONG).show();
             }
         }
     }
