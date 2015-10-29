@@ -13,4 +13,5 @@
     <string name="title_activity_double_report">Report</string>
     <string name="title_activity_boolean_report">Report</string>
     <string name="title_activity_schedule">Schedule Reminders</string>
+    <string name="title_activity_follower">Followers</string>
 </resources>

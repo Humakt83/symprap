@@ -13,15 +13,18 @@ public class User {
 
     public final List<UserRole> roles;
 
-    public User(Long id, String userName, List<Disease> diseases, List<UserRole> roles) {
+    public final List<String> followers;
+
+    public User(Long id, String userName, List<Disease> diseases, List<UserRole> roles, List<String> followers) {
         this.id = id;
         this.userName = userName;
         this.diseases = diseases;
         this.roles = roles;
+        this.followers = followers;
     }
 
     public User() {
-        this(null, null, new ArrayList<Disease>(), new ArrayList<UserRole>());
+        this(null, null, new ArrayList<Disease>(), new ArrayList<UserRole>(), new ArrayList<String>());
     }
 
     @Override

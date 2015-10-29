@@ -71,6 +71,10 @@
             android:name=".ScheduleActivity"
             android:label="@string/title_activity_schedule" >
         </activity>
+        <activity
+            android:name=".FollowerActivity"
+            android:label="@string/title_activity_follower" >
+        </activity>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import retrofit.client.Response;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.PUT;
 import retrofit.http.Path;
 
 public interface SymprapProxy {
@@ -17,7 +18,10 @@ public interface SymprapProxy {
     String TOKEN_PATH = "/oauth/token";
 
     @GET("/user/byusername/{username}")
-    User getUserInfo(@Path("username") String userName);
+    User getUserInfo(@Path("username") String username);
+
+    @PUT("/user/follower/add/{username}")
+    Response addFollower(@Path("username") String username);
 
     @GET("/question/fordisease/{diseaseid}")
     List<Question> getQuestionsForDisease(@Path("diseaseid") Long diseaseId);
