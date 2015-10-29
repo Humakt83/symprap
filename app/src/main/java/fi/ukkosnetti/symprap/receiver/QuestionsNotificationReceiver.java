@@ -7,13 +7,22 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import fi.ukkosnetti.symprap.R;
+import fi.ukkosnetti.symprap.dto.User;
+import fi.ukkosnetti.symprap.dto.UserRole;
 import fi.ukkosnetti.symprap.service.QuestionService;
+import fi.ukkosnetti.symprap.util.CurrentUser;
 
 public class QuestionsNotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        User user = CurrentUser.getCurrentUser();
+        if (user != null && user.roles.contains(UserRole.TEEN)) {
+            createNotification(context);
+        }
+    }
+
+    private void createNotification(Context context) {
         PendingIntent questionsIntent = PendingIntent.getService(
                 context,
                 0,
