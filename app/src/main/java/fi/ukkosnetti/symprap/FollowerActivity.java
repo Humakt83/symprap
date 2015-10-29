@@ -54,6 +54,9 @@ public class FollowerActivity extends Activity {
         } else if (CurrentUser.getCurrentUser().followers.contains(follower)) {
             Toast.makeText(this, "Follower of that name has already been added", Toast.LENGTH_LONG).show();
             return false;
+        } else if (CurrentUser.getCurrentUser().userName.equals(follower)) {
+            Toast.makeText(this, "Cannot add yourself as follower", Toast.LENGTH_LONG).show();
+            return false;
         }
         return true;
     }
