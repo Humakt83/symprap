@@ -24,7 +24,7 @@ import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import fi.ukkosnetti.symprap.task.QuestionsTask;
 import fi.ukkosnetti.symprap.util.CurrentUser;
 
-public class MainActivity extends Activity {
+public class MainActivity extends SymprapActivity {
 
     protected @Bind(R.id.questionButton) ImageButton questionButton;
     protected @Bind(R.id.settingsButton) ImageButton settingsButton;
@@ -44,12 +44,6 @@ public class MainActivity extends Activity {
         questionButton.setVisibility(!teenUser ? View.INVISIBLE : View.VISIBLE);
         settingsButton.setVisibility(!teenUser ? View.INVISIBLE : View.VISIBLE);
         followersButton.setVisibility(!teenUser ? View.INVISIBLE : View.VISIBLE);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     @OnClick(R.id.questionButton)
@@ -75,21 +69,6 @@ public class MainActivity extends Activity {
     @OnClick(R.id.followersButton)
     public void toFollowers() {
         startActivity(new Intent(this, FollowerActivity.class));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            CurrentUser.setCurrentUser(null);
-            startActivity(new Intent(
-                    MainActivity.this,
-                    LoginActivity.class));
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void toStatistics(User user) {

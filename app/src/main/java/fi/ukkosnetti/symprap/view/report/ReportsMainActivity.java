@@ -21,8 +21,9 @@ import fi.ukkosnetti.symprap.dto.Disease;
 import fi.ukkosnetti.symprap.dto.Question;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import fi.ukkosnetti.symprap.proxy.SymprapProxy;
+import fi.ukkosnetti.symprap.view.SymprapActivity;
 
-public class ReportsMainActivity extends Activity {
+public class ReportsMainActivity  extends SymprapActivity {
 
     protected @Bind(R.id.questionsList) ListView questionsList;
 

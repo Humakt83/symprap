@@ -16,8 +16,9 @@ import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.dto.User;
 import fi.ukkosnetti.symprap.dto.UserRole;
 import fi.ukkosnetti.symprap.util.CurrentUser;
+import fi.ukkosnetti.symprap.view.SymprapActivity;
 
-public class ReportsUserSelectionActivity extends Activity {
+public class ReportsUserSelectionActivity extends SymprapActivity {
 
     protected @Bind(R.id.followeeList) ListView followees;
 

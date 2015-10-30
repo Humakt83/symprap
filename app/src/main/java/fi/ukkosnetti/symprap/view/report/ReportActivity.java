@@ -9,8 +9,9 @@ import java.util.List;
 import butterknife.Bind;
 import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.dto.AnswerGet;
+import fi.ukkosnetti.symprap.view.SymprapActivity;
 
-public abstract class ReportActivity extends Activity {
+public abstract class ReportActivity extends SymprapActivity {
 
     public final static String QUESTION_KEY = "report_question_key";
     public final static String ANSWERS_KEY = "report_answers_key";

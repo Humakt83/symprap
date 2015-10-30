@@ -18,7 +18,7 @@ import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import fi.ukkosnetti.symprap.util.CurrentUser;
 
-public class FollowerActivity extends Activity {
+public class FollowerActivity extends SymprapActivity {
 
     protected @Bind(R.id.followersList) ListView followersList;
     protected @Bind(R.id.followerEditText) EditText followerEdit;

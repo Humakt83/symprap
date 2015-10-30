@@ -26,7 +26,7 @@ import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.alarm.CustomTimeBasedAlarmManager;
 import fi.ukkosnetti.symprap.receiver.QuestionsNotificationReceiver;
 
-public class ScheduleActivity extends Activity {
+public class ScheduleActivity extends SymprapActivity {
 
     protected @Bind(R.id.remindersList) ListView remindersList;
     protected BaseAdapter reminderAdapter;
