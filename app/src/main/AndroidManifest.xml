@@ -10,13 +10,13 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".QuestionsActivity"
+            android:name=".view.QuestionsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.LoginActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateHidden" >
             <intent-filter>
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
 
@@ -42,23 +42,23 @@
         </service>
 
         <activity
-            android:name=".RegisterActivity"
+            android:name=".view.RegisterActivity"
             android:label="@string/title_activity_register" >
         </activity>
         <activity
-            android:name=".ReportsMainActivity"
+            android:name=".view.report.ReportsMainActivity"
             android:label="@string/title_activity_reports_main" >
         </activity>
         <activity
-            android:name=".TextReportActivity"
+            android:name=".view.report.TextReportActivity"
             android:label="@string/title_activity_text_report" >
         </activity>
         <activity
-            android:name=".DoubleReportActivity"
+            android:name=".view.report.DoubleReportActivity"
             android:label="@string/title_activity_double_report" >
         </activity>
         <activity
-            android:name=".BooleanReportActivity"
+            android:name=".view.report.BooleanReportActivity"
             android:label="@string/title_activity_boolean_report" >
         </activity>
 
@@ -68,15 +68,15 @@
         </receiver>
 
         <activity
-            android:name=".ScheduleActivity"
+            android:name=".view.ScheduleActivity"
             android:label="@string/title_activity_schedule" >
         </activity>
         <activity
-            android:name=".FollowerActivity"
+            android:name=".view.FollowerActivity"
             android:label="@string/title_activity_follower" >
         </activity>
         <activity
-            android:name=".ReportsUserSelectionActivity"
+            android:name=".view.report.ReportsUserSelectionActivity"
             android:label="@string/title_activity_reports_user_selection" >
         </activity>
     </application>

@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 
 import java.util.ArrayList;
 
-import fi.ukkosnetti.symprap.QuestionsActivity;
+import fi.ukkosnetti.symprap.view.QuestionsActivity;
 import fi.ukkosnetti.symprap.dto.Disease;
 import fi.ukkosnetti.symprap.dto.Question;
 import fi.ukkosnetti.symprap.proxy.SymprapProxy;

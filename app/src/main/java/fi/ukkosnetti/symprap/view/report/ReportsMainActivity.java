@@ -1,4 +1,4 @@
-package fi.ukkosnetti.symprap;
+package fi.ukkosnetti.symprap.view.report;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -15,12 +15,12 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
+import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.dto.AnswerGet;
 import fi.ukkosnetti.symprap.dto.Disease;
 import fi.ukkosnetti.symprap.dto.Question;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import fi.ukkosnetti.symprap.proxy.SymprapProxy;
-import fi.ukkosnetti.symprap.util.CurrentUser;
 
 public class ReportsMainActivity extends Activity {
 

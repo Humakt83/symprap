@@ -1,4 +1,4 @@
-package fi.ukkosnetti.symprap;
+package fi.ukkosnetti.symprap.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,6 +22,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.alarm.CustomTimeBasedAlarmManager;
 import fi.ukkosnetti.symprap.receiver.QuestionsNotificationReceiver;
 

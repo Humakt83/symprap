@@ -1,4 +1,4 @@
-package fi.ukkosnetti.symprap;
+package fi.ukkosnetti.symprap.view.report;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import butterknife.Bind;
+import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.dto.AnswerGet;
 
 public abstract class ReportActivity extends Activity {

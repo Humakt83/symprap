@@ -1,4 +1,4 @@
-package fi.ukkosnetti.symprap;
+package fi.ukkosnetti.symprap.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -11,14 +11,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.dto.User;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import fi.ukkosnetti.symprap.proxy.SymprapProxy;

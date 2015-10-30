@@ -1,7 +1,6 @@
-package fi.ukkosnetti.symprap;
+package fi.ukkosnetti.symprap.view.report;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -13,6 +12,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.dto.AnswerGet;
 import fi.ukkosnetti.symprap.reports.BooleanPieChart;
 import fi.ukkosnetti.symprap.util.Constants;

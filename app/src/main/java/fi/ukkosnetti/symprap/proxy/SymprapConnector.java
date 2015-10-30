@@ -14,13 +14,10 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import fi.ukkosnetti.symprap.LoginActivity;
+import fi.ukkosnetti.symprap.view.LoginActivity;
 import fi.ukkosnetti.symprap.util.Constants;
 import fi.ukkosnetti.symprap.webdata.SecuredRestBuilder;
 import retrofit.RestAdapter;
-import retrofit.android.AndroidApacheClient;
-import retrofit.client.ApacheClient;
-import retrofit.client.Client;
 import retrofit.client.OkClient;
 
 public class SymprapConnector {

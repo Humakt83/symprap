@@ -1,8 +1,6 @@
-package fi.ukkosnetti.symprap;
+package fi.ukkosnetti.symprap.view.report;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.StackView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.dto.AnswerGet;
 import fi.ukkosnetti.symprap.util.Constants;
 
@@ -54,7 +52,7 @@ public class TextReportActivity extends ReportActivity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 if (convertView == null) {
-                    LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                     convertView = inflater.inflate(R.layout.text_answer_report_item, null, false);
                 }
                 TextView dateView = (TextView) convertView.findViewById(R.id.textAnswerDate);

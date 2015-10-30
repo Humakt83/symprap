@@ -1,8 +1,9 @@
-package fi.ukkosnetti.symprap;
+package fi.ukkosnetti.symprap.view;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.dto.Answer;
 import fi.ukkosnetti.symprap.dto.Question;
 import fi.ukkosnetti.symprap.service.AnswerService;

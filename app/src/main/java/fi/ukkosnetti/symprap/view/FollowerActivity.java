@@ -1,9 +1,8 @@
-package fi.ukkosnetti.symprap;
+package fi.ukkosnetti.symprap.view;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
-import android.os.PersistableBundle;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -11,15 +10,12 @@ import android.widget.Toast;
 
 import com.google.common.base.Strings;
 
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
-import fi.ukkosnetti.symprap.dto.Disease;
+import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
-import fi.ukkosnetti.symprap.proxy.SymprapProxy;
 import fi.ukkosnetti.symprap.util.CurrentUser;
 
 public class FollowerActivity extends Activity {

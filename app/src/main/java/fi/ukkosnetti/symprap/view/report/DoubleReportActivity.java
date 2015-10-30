@@ -1,19 +1,18 @@
-package fi.ukkosnetti.symprap;
+package fi.ukkosnetti.symprap.view.report;
 
 import android.graphics.Point;
 import android.os.Bundle;
-import android.app.Activity;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.dto.AnswerGet;
 import fi.ukkosnetti.symprap.reports.SingleLineChart;
 import fi.ukkosnetti.symprap.util.Constants;

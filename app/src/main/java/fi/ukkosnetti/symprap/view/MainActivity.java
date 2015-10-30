@@ -1,13 +1,7 @@
-package fi.ukkosnetti.symprap;
+package fi.ukkosnetti.symprap.view;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Intent;
-import android.media.Image;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,12 +15,12 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import fi.ukkosnetti.symprap.dto.Question;
+import fi.ukkosnetti.symprap.R;
+import fi.ukkosnetti.symprap.view.report.ReportsMainActivity;
+import fi.ukkosnetti.symprap.view.report.ReportsUserSelectionActivity;
 import fi.ukkosnetti.symprap.dto.User;
 import fi.ukkosnetti.symprap.dto.UserRole;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
-import fi.ukkosnetti.symprap.proxy.SymprapProxy;
-import fi.ukkosnetti.symprap.receiver.QuestionsNotificationReceiver;
 import fi.ukkosnetti.symprap.task.QuestionsTask;
 import fi.ukkosnetti.symprap.util.CurrentUser;
 
