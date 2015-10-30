@@ -19,7 +19,10 @@ public abstract class SymprapActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
+        if (id == R.id.action_main && !(this instanceof MainActivity)) {
+            startActivity(new Intent(this, MainActivity.class));
+            return true;
+        }
         if (id == R.id.action_settings) {
             CurrentUser.setCurrentUser(null);
             startActivity(new Intent(this, LoginActivity.class));
