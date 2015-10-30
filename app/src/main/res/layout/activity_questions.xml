@@ -9,7 +9,7 @@
          TextureView, etc. -->
     <TextView android:id="@+id/question" android:layout_width="match_parent"
         android:layout_height="match_parent" android:keepScreenOn="true" android:textColor="#e5ca00"
-        android:textStyle="bold" android:textSize="50sp" android:gravity="top|center_horizontal"
+        android:textStyle="bold" android:textSize="40sp" android:gravity="top|center_horizontal"
         android:text="@string/dummy_question" android:layout_marginTop="70dp"/>
 
     <RelativeLayout
@@ -71,6 +71,14 @@
          android:fitsSystemWindows. -->
     <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
         android:fitsSystemWindows="true">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Make answer private"
+            android:id="@+id/privateBox"
+            android:layout_gravity="right|center_horizontal"
+            android:layout_marginRight="15dp" />
 
         <LinearLayout android:id="@+id/fullscreen_content_controls" style="?metaButtonBarStyle"
             android:layout_width="match_parent" android:layout_height="wrap_content"

@@ -10,13 +10,16 @@ public class Answer implements Serializable{
 
     public final String answer;
 
-    public Answer(Long questionId, Long userId, String answer) {
+    public final boolean answerIsPrivate;
+
+    public Answer(Long questionId, Long userId, String answer, boolean answerIsPrivate) {
         this.questionId = questionId;
         this.userId = userId;
         this.answer = answer;
+        this.answerIsPrivate = answerIsPrivate;
     }
 
     public Answer() {
-        this(null, null, null);
+        this(null, null, null, false);
     }
 }

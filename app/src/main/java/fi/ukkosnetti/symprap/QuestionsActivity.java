@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -77,6 +78,8 @@ public class QuestionsActivity extends Activity {
     protected @Bind(R.id.number_answers) View numberAnswers;
 
     protected @Bind(R.id.text_answers) View textAnswers;
+
+    protected @Bind(R.id.privateBox) CheckBox answerIsPrivateBox;
 
     /**
      * The instance of the {@link SystemUiHider} for this activity.
@@ -210,7 +213,7 @@ public class QuestionsActivity extends Activity {
     }
 
     private void continueQuestions(String answer) {
-        answers.add(new Answer(currentQuestion.id, CurrentUser.getCurrentUser().id, answer));
+        answers.add(new Answer(currentQuestion.id, CurrentUser.getCurrentUser().id, answer, answerIsPrivateBox.isChecked()));
         if (questions.hasNext()) {
             setupQuestion();
         } else {
