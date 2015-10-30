@@ -75,6 +75,10 @@
             android:name=".FollowerActivity"
             android:label="@string/title_activity_follower" >
         </activity>
+        <activity
+            android:name=".ReportsUserSelectionActivity"
+            android:label="@string/title_activity_reports_user_selection" >
+        </activity>
     </application>
 
 </manifest>

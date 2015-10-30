@@ -4,6 +4,7 @@ import java.util.List;
 
 import fi.ukkosnetti.symprap.dto.Answer;
 import fi.ukkosnetti.symprap.dto.AnswerGet;
+import fi.ukkosnetti.symprap.dto.Disease;
 import fi.ukkosnetti.symprap.dto.Question;
 import fi.ukkosnetti.symprap.dto.User;
 import retrofit.client.Response;
@@ -34,5 +35,8 @@ public interface SymprapProxy {
 
     @GET("/answer/byuser/{username}")
     List<AnswerGet> getAnswersForUser(@Path("username") String username);
+
+    @GET("/disease/byuser/{username}")
+    List<Disease> getDiseasesOfUser(@Path("username") String username);
 
 }

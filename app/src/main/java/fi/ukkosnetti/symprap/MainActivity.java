@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,12 @@ public class MainActivity extends Activity {
 
     @OnClick(R.id.statisticsButton)
     public void toStatistics() {
-        startActivity(new Intent(this, ReportsMainActivity.class));
+        User user = CurrentUser.getCurrentUser();
+        if (user.roles.contains(UserRole.TEEN) || !user.followees.isEmpty()) {
+            toStatistics(user);
+        } else {
+            Toast.makeText(this, "You are not following anyone", Toast.LENGTH_LONG).show();
+        }
     }
 
     @OnClick(R.id.settingsButton)
@@ -90,5 +96,23 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void toStatistics(User user) {
+        List<String> usernames = userNamesForReports(user);
+        if (usernames.size() == 1) {
+            Intent intent = new Intent(this, ReportsMainActivity.class);
+            intent.putExtra(ReportsMainActivity.USERNAME_KEY, usernames.get(0));
+            startActivity(intent);
+        } else {
+            startActivity(new Intent(this, ReportsUserSelectionActivity.class));
+        }
+    }
+
+    private List<String> userNamesForReports(User user) {
+        List<String> userNames = new ArrayList<>();
+        if (user.roles.contains(UserRole.TEEN)) userNames.add(user.userName);
+        userNames.addAll(user.followees);
+        return userNames;
     }
 }

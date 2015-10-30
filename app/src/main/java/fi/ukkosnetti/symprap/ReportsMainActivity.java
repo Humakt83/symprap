@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import fi.ukkosnetti.symprap.dto.AnswerGet;
+import fi.ukkosnetti.symprap.dto.Disease;
 import fi.ukkosnetti.symprap.dto.Question;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import fi.ukkosnetti.symprap.proxy.SymprapProxy;
@@ -24,7 +26,11 @@ public class ReportsMainActivity extends Activity {
 
     protected @Bind(R.id.questionsList) ListView questionsList;
 
+    protected @Bind(R.id.reportsUsernameTitle) TextView title;
+
     private List<AnswerGet> answersToQuestions;
+
+    public static final String USERNAME_KEY = "username_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +43,11 @@ public class ReportsMainActivity extends Activity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        String username = getIntent().getStringExtra(USERNAME_KEY);
+        title.setText("Reports of user " + username);
         SymprapProxy proxy = SymprapConnector.proxy(getApplicationContext());
-        getAnswers(proxy);
-        getQuestions(proxy);
+        getAnswers(proxy, username);
+        getQuestions(proxy, username);
     }
 
     @OnItemClick(R.id.questionsList)
@@ -82,12 +90,12 @@ public class ReportsMainActivity extends Activity {
         return fittingAnswers;
     }
 
-    private void getAnswers(SymprapProxy proxy) {
+    private void getAnswers(SymprapProxy proxy, final String username) {
         new AsyncTask<SymprapProxy, Void, List<AnswerGet>>() {
 
             @Override
             protected List<AnswerGet> doInBackground(SymprapProxy... params) {
-                return params[0].getAnswersForUser(CurrentUser.getCurrentUser().userName);
+                return params[0].getAnswersForUser(username);
             }
 
             @Override
@@ -98,13 +106,16 @@ public class ReportsMainActivity extends Activity {
         }.execute(proxy);
     }
 
-    private void getQuestions(SymprapProxy proxy) {
-        new AsyncTask<SymprapProxy, Void, List<Question>>() {
+    private void getQuestions(final SymprapProxy proxy, final String username) {
+        new AsyncTask<Void, Void, List<Question>>() {
 
             @Override
-            protected List<Question> doInBackground(SymprapProxy... params) {
-                Long diseaseId = CurrentUser.getCurrentUser().diseases.get(0).id;
-                return params[0].getQuestionsForDisease(diseaseId);
+            protected List<Question> doInBackground(Void... params) {
+                List<Question> questions = new ArrayList<>();
+                for (Disease disease : proxy.getDiseasesOfUser(username)) {
+                    questions.addAll(proxy.getQuestionsForDisease(disease.id));
+                }
+                return questions;
             }
 
             @Override
@@ -113,6 +124,6 @@ public class ReportsMainActivity extends Activity {
                         R.layout.question_list_item, questions));
             }
 
-        }.execute(proxy);
+        }.execute();
     }
 }
