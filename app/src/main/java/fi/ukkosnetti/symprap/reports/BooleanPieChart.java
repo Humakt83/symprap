@@ -18,7 +18,7 @@ public class BooleanPieChart extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        RectF dimensions = new RectF(20, 20, 400, 400);
+        RectF dimensions = new RectF(20, 20, 600, 600);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.GREEN);
         canvas.drawArc(dimensions, 0, 360, true, paint);

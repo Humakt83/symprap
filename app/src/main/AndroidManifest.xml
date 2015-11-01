@@ -51,14 +51,17 @@
         </activity>
         <activity
             android:name=".view.report.TextReportActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_text_report" >
         </activity>
         <activity
             android:name=".view.report.DoubleReportActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_double_report" >
         </activity>
         <activity
             android:name=".view.report.BooleanReportActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_boolean_report" >
         </activity>
 

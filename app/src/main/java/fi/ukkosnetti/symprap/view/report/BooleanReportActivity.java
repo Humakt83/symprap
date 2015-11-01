@@ -21,6 +21,8 @@ public class BooleanReportActivity extends ReportActivity {
 
     protected @Bind(R.id.booleanCanvasLayout) FrameLayout drawingLayout;
     protected @Bind(R.id.booleanReportDate) TextView dateView;
+    protected @Bind(R.id.booleanNoes) TextView amountOfNoes;
+    protected @Bind(R.id.booleanYesses) TextView amountOfYesses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +39,6 @@ public class BooleanReportActivity extends ReportActivity {
             formatAnswerCreationDate(answers.get(0))));
     }
 
-    private String formatAnswerCreationDate(AnswerGet answer) {
-        return Constants.DATETIME_FORMATTER.format(new Date(answer.created));
-    }
-
     @NonNull
     private View createPieChart(List<AnswerGet> answers) {
         Long noes = 0l;
@@ -49,6 +47,8 @@ public class BooleanReportActivity extends ReportActivity {
             if (Boolean.parseBoolean(answer.answer)) yesses++;
             else noes++;
         }
+        amountOfNoes.setText(noes.toString());
+        amountOfYesses.setText(yesses.toString());
         return new BooleanPieChart(this, yesses, noes);
     }
 }

@@ -33,15 +33,11 @@ public class DoubleReportActivity extends ReportActivity {
     protected void renderAnswers(List<AnswerGet> answers) {
         Collections.sort(answers);
         Collections.reverse(answers);
+        dateView.setText(String.format("%s - %s", formatAnswerCreationDate(answers.get(0)),
+                formatAnswerCreationDate(answers.get(answers.size() - 1))));
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         drawingLayout.addView(new SingleLineChart(this, size.x, getPoints(answers)));
-        dateView.setText(String.format("%s - %s", formatAnswerCreationDate(answers.get(answers.size() - 1)),
-                formatAnswerCreationDate(answers.get(0))));
-    }
-
-    private String formatAnswerCreationDate(AnswerGet answer) {
-        return Constants.DATETIME_FORMATTER.format(new Date(answer.created));
     }
 
     private List<Double> getPoints(List<AnswerGet> answers) {

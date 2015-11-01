@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
 import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.dto.AnswerGet;
+import fi.ukkosnetti.symprap.util.Constants;
 import fi.ukkosnetti.symprap.view.SymprapActivity;
 
 public abstract class ReportActivity extends SymprapActivity {
@@ -29,4 +31,7 @@ public abstract class ReportActivity extends SymprapActivity {
 
     protected abstract void renderAnswers(List<AnswerGet> answers);
 
+    protected String formatAnswerCreationDate(AnswerGet answer) {
+        return Constants.DATETIME_FORMATTER.format(new Date(answer.created));
+    }
 }
