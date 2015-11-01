@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -29,6 +31,9 @@ public class MainActivity extends SymprapActivity {
     protected @Bind(R.id.questionButton) ImageButton questionButton;
     protected @Bind(R.id.settingsButton) ImageButton settingsButton;
     protected @Bind(R.id.followersButton) ImageButton followersButton;
+    protected @Bind(R.id.statisticsButton) ImageButton statisticsButton;
+
+    private Animation buttonAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +45,24 @@ public class MainActivity extends SymprapActivity {
             startActivity(new Intent(this, LoginActivity.class));
             return;
         }
-        boolean teenUser = currentUser.roles.contains(UserRole.TEEN);
+        buttonAnimation = AnimationUtils.loadAnimation(this, R.anim.animation_main);
+        boolean teenUser = CurrentUser.isTeenUser();
         questionButton.setVisibility(!teenUser ? View.INVISIBLE : View.VISIBLE);
         settingsButton.setVisibility(!teenUser ? View.INVISIBLE : View.VISIBLE);
         followersButton.setVisibility(!teenUser ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            statisticsButton.startAnimation(buttonAnimation);
+            if (CurrentUser.isTeenUser()) {
+                questionButton.startAnimation(buttonAnimation);
+                settingsButton.startAnimation(buttonAnimation);
+                followersButton.startAnimation(buttonAnimation);
+            }
+        }
     }
 
     @OnClick(R.id.questionButton)
