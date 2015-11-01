@@ -51,18 +51,18 @@
         </activity>
         <activity
             android:name=".view.report.TextReportActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_text_report" >
+            android:label="@string/title_activity_text_report"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".view.report.DoubleReportActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_double_report" >
+            android:label="@string/title_activity_double_report"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".view.report.BooleanReportActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_boolean_report" >
+            android:label="@string/title_activity_boolean_report"
+            android:screenOrientation="portrait" >
         </activity>
 
         <receiver
@@ -81,6 +81,10 @@
         <activity
             android:name=".view.report.ReportsUserSelectionActivity"
             android:label="@string/title_activity_reports_user_selection" >
+        </activity>
+        <activity
+            android:name=".view.AboutActivity"
+            android:label="@string/title_activity_about" >
         </activity>
     </application>
 

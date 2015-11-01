@@ -23,6 +23,10 @@ public abstract class SymprapActivity extends Activity {
             startActivity(new Intent(this, MainActivity.class));
             return true;
         }
+        if (id == R.id.action_about && !(this instanceof AboutActivity)) {
+            startActivity(new Intent(this, AboutActivity.class));
+            return true;
+        }
         if (id == R.id.action_settings) {
             CurrentUser.setCurrentUser(null);
             startActivity(new Intent(this, LoginActivity.class));
