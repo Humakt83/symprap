@@ -63,7 +63,7 @@ public class ScheduleActivity extends SymprapActivity {
                 }
                 TimePicker timePicker = (TimePicker) convertView.findViewById(R.id.scheduleTimePicker);
                 Date date = dates.get(position);
-                Calendar calendar = GregorianCalendar.getInstance();
+                Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
                 timePicker.setIs24HourView(true);
                 timePicker.setHour(calendar.get(Calendar.HOUR_OF_DAY));
@@ -71,12 +71,10 @@ public class ScheduleActivity extends SymprapActivity {
                 timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
                     @Override
                     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                        Date updateDate = dates.get(position);
-                        Calendar cal = GregorianCalendar.getInstance();
-                        cal.setTime(updateDate);
+                        Calendar cal = Calendar.getInstance();
                         cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         cal.set(Calendar.MINUTE, minute);
-                        updateDate.setTime(cal.getTimeInMillis());
+                        dates.set(position, cal.getTime());
                     }
                 });
                 Button removeButton = (Button)convertView.findViewById(R.id.removeReminderButton);
@@ -95,7 +93,7 @@ public class ScheduleActivity extends SymprapActivity {
 
     @OnClick(R.id.addReminderButton)
     public void addReminder() {
-        dates.add(new Date());
+        dates.add(Calendar.getInstance().getTime());
         reminderAdapter.notifyDataSetChanged();
     }
 

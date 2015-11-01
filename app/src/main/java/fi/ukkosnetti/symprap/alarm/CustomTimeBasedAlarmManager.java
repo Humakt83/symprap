@@ -24,14 +24,14 @@ public class CustomTimeBasedAlarmManager {
     }
 
     private void cancelAlarms(Intent intent, AlarmManager alarmManager) {
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
         alarmManager.cancel(alarmIntent);
     }
 
     private void setAlarms(Intent intent, AlarmManager alarmManager, List<Date> dates) {
         for (Date date : dates) {
-            PendingIntent alarmIntent = PendingIntent.getBroadcast(context, (int)date.getTime(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, date.getTime(), AlarmManager.INTERVAL_DAY, alarmIntent);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(context, (int)date.getTime(), intent, 0);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, date.getTime(), AlarmManager.INTERVAL_DAY, alarmIntent);
         }
     }
 
