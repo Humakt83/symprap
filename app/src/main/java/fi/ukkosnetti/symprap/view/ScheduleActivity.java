@@ -3,6 +3,7 @@ package fi.ukkosnetti.symprap.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,64 +32,18 @@ public class ScheduleActivity extends SymprapActivity {
     protected @Bind(R.id.remindersList) ListView remindersList;
     protected BaseAdapter reminderAdapter;
     private List<Date> dates;
+    private CustomTimeBasedAlarmManager alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
         ButterKnife.bind(this);
-        dates = new ArrayList<>();
-        reminderAdapter = new BaseAdapter() {
-
-            @Override
-            public int getCount() {
-                return dates.size();
-            }
-
-            @Override
-            public Object getItem(int position) {
-                return dates.get(position);
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
-
-            @Override
-            public View getView(final int position, View convertView, ViewGroup parent) {
-                if (convertView == null) {
-                    LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    convertView = inflater.inflate(R.layout.schedule_list_item, null, false);
-                }
-                TimePicker timePicker = (TimePicker) convertView.findViewById(R.id.scheduleTimePicker);
-                Date date = dates.get(position);
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                timePicker.setIs24HourView(true);
-                timePicker.setHour(calendar.get(Calendar.HOUR_OF_DAY));
-                timePicker.setMinute(calendar.get(Calendar.MINUTE));
-                timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-                    @Override
-                    public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                        Calendar cal = Calendar.getInstance();
-                        cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        cal.set(Calendar.MINUTE, minute);
-                        dates.set(position, cal.getTime());
-                    }
-                });
-                Button removeButton = (Button)convertView.findViewById(R.id.removeReminderButton);
-                removeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dates.remove(position);
-                        reminderAdapter.notifyDataSetChanged();
-                    }
-                });
-                return convertView;
-            }
-        };
+        alarmManager = new CustomTimeBasedAlarmManager(this);
+        dates = alarmManager.getSavedAlarms();
+        reminderAdapter = new AlarmTimeAdapter();
         remindersList.setAdapter(reminderAdapter);
+        reminderAdapter.notifyDataSetChanged();
     }
 
     @OnClick(R.id.addReminderButton)
@@ -100,10 +55,60 @@ public class ScheduleActivity extends SymprapActivity {
     @OnClick(R.id.saveRemindersButton)
     public void saveAlarms() {
         Intent intent = new Intent(this, QuestionsNotificationReceiver.class);
-        new CustomTimeBasedAlarmManager(this).saveAlarms(intent, dates);
+        alarmManager.saveAlarms(intent, dates);
         Toast.makeText(this, "Notification times for check-ins updated", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, MainActivity.class));
     }
 
 
+    private class AlarmTimeAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return dates.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return dates.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.schedule_list_item, null, false);
+            }
+            TimePicker timePicker = (TimePicker) convertView.findViewById(R.id.scheduleTimePicker);
+            Date date = dates.get(position);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            timePicker.setIs24HourView(true);
+            timePicker.setHour(calendar.get(Calendar.HOUR_OF_DAY));
+            timePicker.setMinute(calendar.get(Calendar.MINUTE));
+            timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+                @Override
+                public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    cal.set(Calendar.MINUTE, minute);
+                    dates.set(position, cal.getTime());
+                }
+            });
+            Button removeButton = (Button)convertView.findViewById(R.id.removeReminderButton);
+            removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dates.remove(position);
+                    reminderAdapter.notifyDataSetChanged();
+                }
+            });
+            return convertView;
+        }
+    }
 }
