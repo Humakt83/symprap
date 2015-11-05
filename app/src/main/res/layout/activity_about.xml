@@ -11,8 +11,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Disease reporting application."
+        android:text="Disease reporting application. Created by Humakt83"
         android:id="@+id/aboutText"
         android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/aboutImage"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/logo"
+        android:layout_below="@+id/aboutText"
         android:layout_alignParentStart="true" />
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -12,7 +13,7 @@ import fi.ukkosnetti.symprap.R;
 
 public class AboutActivity extends SymprapActivity {
 
-    protected @Bind(R.id.aboutText) TextView aboutText;
+    protected @Bind(R.id.aboutImage) ImageView aboutImage;
     protected Animation animation;
 
     @Override
@@ -26,6 +27,6 @@ public class AboutActivity extends SymprapActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) aboutText.startAnimation(animation);
+        if (hasFocus) aboutImage.startAnimation(animation);
     }
 }

@@ -12,7 +12,7 @@ public class Constants {
 
     public static final String DATE_FORMAT = "MM/dd/yyyy";
 
-    public static final String TIME_FORMAT = "hh:mm";
+    public static final String TIME_FORMAT = "HH:mm";
 
     public static final String DATETIME_FORMAT = DATE_FORMAT + " " + TIME_FORMAT;
 
