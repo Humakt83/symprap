@@ -1,9 +1,8 @@
 package fi.ukkosnetti.symprap.view;
 
-import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +10,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import butterknife.Bind;
@@ -25,14 +23,17 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fi.ukkosnetti.symprap.R;
 import fi.ukkosnetti.symprap.alarm.CustomTimeBasedAlarmManager;
+import fi.ukkosnetti.symprap.alarm.ScheduleTimePickerFragment;
 import fi.ukkosnetti.symprap.receiver.QuestionsNotificationReceiver;
+import fi.ukkosnetti.symprap.util.Constants;
 
-public class ScheduleActivity extends SymprapActivity {
+public class ScheduleActivity extends SymprapActivity implements ScheduleTimePickerFragment.OnCompleteListener {
 
     protected @Bind(R.id.remindersList) ListView remindersList;
     protected BaseAdapter reminderAdapter;
     private List<Date> dates;
     private CustomTimeBasedAlarmManager alarmManager;
+    private int selectedPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,6 @@ public class ScheduleActivity extends SymprapActivity {
         dates = alarmManager.getSavedAlarms();
         reminderAdapter = new AlarmTimeAdapter();
         remindersList.setAdapter(reminderAdapter);
-        reminderAdapter.notifyDataSetChanged();
     }
 
     @OnClick(R.id.addReminderButton)
@@ -58,6 +58,12 @@ public class ScheduleActivity extends SymprapActivity {
         alarmManager.saveAlarms(intent, dates);
         Toast.makeText(this, "Notification times for check-ins updated", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, MainActivity.class));
+    }
+
+    @Override
+    public void onComplete(Date time) {
+        dates.set(selectedPosition, time);
+        reminderAdapter.notifyDataSetChanged();
     }
 
 
@@ -79,36 +85,44 @@ public class ScheduleActivity extends SymprapActivity {
         }
 
         @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.schedule_list_item, null, false);
             }
-            TimePicker timePicker = (TimePicker) convertView.findViewById(R.id.scheduleTimePicker);
-            Date date = dates.get(position);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-            timePicker.setIs24HourView(true);
-            timePicker.setHour(calendar.get(Calendar.HOUR_OF_DAY));
-            timePicker.setMinute(calendar.get(Calendar.MINUTE));
-            timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-                @Override
-                public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                    Calendar cal = Calendar.getInstance();
-                    cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                    cal.set(Calendar.MINUTE, minute);
-                    dates.set(position, cal.getTime());
-                }
-            });
-            Button removeButton = (Button)convertView.findViewById(R.id.removeReminderButton);
-            removeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dates.remove(position);
-                    reminderAdapter.notifyDataSetChanged();
-                }
-            });
+            ((TextView) convertView.findViewById(R.id.timeView)).setText(Constants.TIME_FORMATTER.format(dates.get(position)));
+            ((Button)convertView.findViewById(R.id.setTimeButton)).setOnClickListener(new SetScheduleOnClickListener(position));
+            ((Button)convertView.findViewById(R.id.removeReminderButton)).setOnClickListener(new RemoveScheduleOnClickListener(position));
             return convertView;
+        }
+
+        private class RemoveScheduleOnClickListener implements View.OnClickListener {
+            private final int position;
+
+            public RemoveScheduleOnClickListener(int position) {
+                this.position = position;
+            }
+
+            @Override
+            public void onClick(View v) {
+                dates.remove(position);
+                reminderAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    private class SetScheduleOnClickListener implements View.OnClickListener {
+
+        private final int position;
+
+        public SetScheduleOnClickListener(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public void onClick(View v) {
+            ScheduleActivity.this.selectedPosition = position;
+            new ScheduleTimePickerFragment().show(getFragmentManager(), "timePicker");
         }
     }
 }

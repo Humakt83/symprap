@@ -12,9 +12,13 @@ public class Constants {
 
     public static final String DATE_FORMAT = "MM/dd/yyyy";
 
-    public static final String DATETIME_FORMAT = DATE_FORMAT + " hh:mm";
+    public static final String TIME_FORMAT = "hh:mm";
+
+    public static final String DATETIME_FORMAT = DATE_FORMAT + " " + TIME_FORMAT;
 
     public static final DateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
+
+    public static final DateFormat TIME_FORMATTER = new SimpleDateFormat(TIME_FORMAT);
 
     public static final DateFormat DATETIME_FORMATTER = new SimpleDateFormat(DATETIME_FORMAT);
 
