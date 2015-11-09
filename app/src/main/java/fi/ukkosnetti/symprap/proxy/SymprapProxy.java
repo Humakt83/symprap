@@ -14,6 +14,9 @@ import retrofit.http.POST;
 import retrofit.http.PUT;
 import retrofit.http.Path;
 
+/**
+ * REST methods of symprap-server used by this client that require authentication
+ */
 public interface SymprapProxy {
 
     String TOKEN_PATH = "/oauth/token";

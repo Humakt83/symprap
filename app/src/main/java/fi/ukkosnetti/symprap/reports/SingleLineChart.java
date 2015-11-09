@@ -8,6 +8,9 @@ import android.view.View;
 
 import java.util.List;
 
+/**
+ * View that draws a single line chart
+ */
 public class SingleLineChart extends View {
 
     private static final Integer HEIGHT = 500;

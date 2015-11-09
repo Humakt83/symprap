@@ -12,6 +12,10 @@ import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import fi.ukkosnetti.symprap.proxy.SymprapProxy;
 import fi.ukkosnetti.symprap.util.CurrentUser;
 
+/**
+ * IntentService that retrieves questions related to current user's diseases
+ * and forwards them to the QuestionsActivity
+ */
 public class QuestionService extends IntentService {
 
     public QuestionService() {

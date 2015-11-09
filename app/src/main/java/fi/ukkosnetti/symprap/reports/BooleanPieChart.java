@@ -7,6 +7,9 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.view.View;
 
+/**
+ * View that draws a simple chart
+ */
 public class BooleanPieChart extends View {
 
     private Float noPercentage;

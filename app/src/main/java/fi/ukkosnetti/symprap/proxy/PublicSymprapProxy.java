@@ -10,6 +10,9 @@ import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
 
+/**
+ * Public REST methods of symprap-server that does not require authentication.
+ */
 public interface PublicSymprapProxy {
 
     @POST("/user/register")

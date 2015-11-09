@@ -3,6 +3,9 @@ package fi.ukkosnetti.symprap.util;
 import fi.ukkosnetti.symprap.dto.User;
 import fi.ukkosnetti.symprap.dto.UserRole;
 
+/**
+ * Utility class that provides static methods for setting and getting the current user.
+ */
 public class CurrentUser {
 
     private static User currentUser;

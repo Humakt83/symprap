@@ -20,6 +20,10 @@ import fi.ukkosnetti.symprap.webdata.SecuredRestBuilder;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 
+/**
+ * Connection tool that provides Retrofits classes.
+ * Note that the current implementation is insecure as it accepts an untrusted certification.
+ */
 public class SymprapConnector {
 
     private static final String CLIENT_ID = "mobile";

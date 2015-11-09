@@ -17,6 +17,9 @@ import fi.ukkosnetti.symprap.dto.Question;
 import fi.ukkosnetti.symprap.proxy.SymprapConnector;
 import retrofit.client.Response;
 
+/**
+ * Service that uploads answers to symprap-server and notifies the user
+ */
 public class AnswerService extends IntentService {
 
     private static final int NOTIFICATION_ID = 100;

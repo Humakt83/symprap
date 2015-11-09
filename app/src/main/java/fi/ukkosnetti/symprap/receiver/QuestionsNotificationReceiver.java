@@ -12,6 +12,9 @@ import fi.ukkosnetti.symprap.dto.UserRole;
 import fi.ukkosnetti.symprap.service.QuestionService;
 import fi.ukkosnetti.symprap.util.CurrentUser;
 
+/**
+ * Receiver that creates a notification that redirects user to QuestionActivity when accepted.
+ */
 public class QuestionsNotificationReceiver extends BroadcastReceiver {
 
     @Override

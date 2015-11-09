@@ -16,6 +16,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Class that utilizes alarm manager to send broadcasts in 24-hour intervals for provided dates.
+ * Stores and retrieves dates into SharedPreferences for possible editing purposes.
+ **/
 public class CustomTimeBasedAlarmManager {
 
     private Context context;
